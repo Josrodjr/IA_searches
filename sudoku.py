@@ -1,4 +1,5 @@
 # python sudoku.py start=.4.13.4.1..4.21.
+# python sudoku.py start=.42...4.2...4...
 
 import sys
 
@@ -21,4 +22,5 @@ for i in range(len(parsed_string)):
         init_matrix.append(temporal_arr)
         temporal_arr = []
 
-print(init_matrix[0])
+print(init_matrix)
+print(init_matrix[0][1] + " " + init_matrix[1][1] + " " + init_matrix[2][1])
