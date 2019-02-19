@@ -82,8 +82,41 @@ def info_square(x, y, cs):
     return total_occ
 
 
+def possible_value(x, y, cs):
+    values = ['1', '2', '3', '4']
+    vertical = [cs[0][x], cs[1][x], cs[2][x], cs[3][x]]
+    for y1 in vertical:
+        if y1 in values:
+            values.remove(y1)
+    horizontal = cs[y]
+    for x1 in horizontal:
+        if x1 in values:
+            values.remove(x1)
+    return values
+
+
+# check the number of '.' the array has
+def check_empty(cs):
+    blank_numbers = 0
+    # for i in range(len(cs)):
+    #     vertical = [cs[0][i], cs[1][i], cs[2][i], cs[3][i]]
+    #     for y1 in vertical:
+    #         if y1 == '.':
+    #             blank_numbers += 1
+    for j in range(len(cs)):
+        horizontal = cs[j]
+        for x1 in horizontal:
+            if x1 == '.':
+                blank_numbers += 1
+    return blank_numbers
+
 # tests for the methods
 # print(check_horizontal([5, 2, 5, 4]))
 # print(check_vertical(1, 2, 3, 4))
 # print(horizontal_info(['.', '1', '2', '.']))
-print(info_square(0, 1, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
+# print(info_square(0, 1, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
+print(check_win([['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
+
+# print(possible_value(0, 0, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
+# array = [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
+# print(check_empty(array))
