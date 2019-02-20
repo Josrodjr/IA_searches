@@ -110,13 +110,40 @@ def check_empty(cs):
                 blank_numbers += 1
     return blank_numbers
 
+
+def check_matrix(cs):
+    # create an empty matrix of the same dimensions
+    temp_matrix = [['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.']]
+    for y in range(len(cs)):
+        for x in range(len(cs)):
+            temp_matrix[y][x] = info_square(x, y, cs)
+    # print(temp_matrix)
+    # print(highest_value(temp_matrix))
+    return highest_value(temp_matrix)
+
+
+def highest_value(cs):
+    highest_value = 0
+    x0 = 0
+    y0 = 0
+    for y in range(len(cs)):
+        for x in range(len(cs)):
+            if (highest_value < cs[y][x]):
+                highest_value = cs[y][x]
+                x0 = x
+                y0 = y
+    return highest_value, x0, y0
+
+
 # tests for the methods
 # print(check_horizontal([5, 2, 5, 4]))
 # print(check_vertical(1, 2, 3, 4))
 # print(horizontal_info(['.', '1', '2', '.']))
 # print(info_square(0, 1, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
-print(check_win([['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
+# print(check_win([['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
 
 # print(possible_value(0, 0, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
-# array = [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
+array = [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
 # print(check_empty(array))
+# print(array)
+print(check_matrix(array))

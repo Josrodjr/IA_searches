@@ -10,6 +10,7 @@ import modules.starlib as slib
 parsed_string = ''
 # generate the matrix where we will store the starting state
 init_matrix = []
+completion = False
 
 if str(sys.argv[1]):
     full_string = str(sys.argv[1])
@@ -24,8 +25,8 @@ for i in range(len(parsed_string)):
         init_matrix.append(temporal_arr)
         temporal_arr = []
 
-print(init_matrix)
-print(init_matrix[0][1] + " " + init_matrix[1][1] + " " + init_matrix[2][1])
+# print(init_matrix)
+# print(init_matrix[0][1] + " " + init_matrix[1][1] + " " + init_matrix[2][1])
 
 # start the loop of the program
 possible_routes = []
@@ -33,8 +34,18 @@ possible_routes = []
 possible_routes.append(init_matrix)
 
 # borrar esto
-tx = [['.', '4', '2', '.'], ['1', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
+# tx = [['.', '4', '2', '.'], ['1', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
 ty = [['3', '4', '2', '1'], ['1', '2', '4', '3'], ['2', '3', '1', '4'], ['4', '1', '3', '2']]
 
-while (slib.check_win(ty) != 0 & slib.check_empty(ty) != 0):
-    print("victory")
+# possible_routes.append(ty)
+
+while (completion is not True):
+    if (possible_routes == []):
+        print("SIN SOLUCION")
+        break
+    for i in range(len(possible_routes)):
+        if (slib.check_win(possible_routes[i]) != 0 | slib.check_empty(possible_routes[i]) != 0):
+            print("need more calulations")
+        if (slib.check_win(possible_routes[i]) == 0 & slib.check_empty(possible_routes[i]) == 0):
+            print("Path Complete")
+            completion = True
