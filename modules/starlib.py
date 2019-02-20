@@ -1,5 +1,5 @@
 # library for some operations
-
+import copy
 
 # Check_horizontal
 # input: array with the horizontal values of the sudoku
@@ -79,6 +79,8 @@ def info_square(x, y, cs):
     # check number of informatio on the vertical axis
     v_occ = vertical_info(cs[0][x], cs[1][x], cs[2][x], cs[3][x])
     total_occ = h_occ + v_occ
+    if cs[y][x] != '.':
+        return 0
     return total_occ
 
 
@@ -135,6 +137,12 @@ def highest_value(cs):
     return highest_value, x0, y0
 
 
+def create_newmat(x, y, val, cs):
+    newmat = copy.deepcopy(cs)
+    newmat[y][x] = val
+    return newmat
+
+
 # tests for the methods
 # print(check_horizontal([5, 2, 5, 4]))
 # print(check_vertical(1, 2, 3, 4))
@@ -146,4 +154,14 @@ def highest_value(cs):
 array = [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
 # print(check_empty(array))
 # print(array)
-print(check_matrix(array))
+# print(check_matrix(array))
+
+# print(create_newmat(0, 1, '2', array))
+
+# que esta pasando con esta matriz
+matrix = [['1', '4', '2', '3'], ['3', '1', '4', '2'], ['2', '3', '1', '4'], ['4', '2', '3', '.']]
+
+# check win
+print(check_win(matrix))
+# check empty
+print(check_empty(matrix))
