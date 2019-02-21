@@ -1,6 +1,7 @@
 # library for some operations
 import copy
 
+
 # Check_horizontal
 # input: array with the horizontal values of the sudoku
 # output 1 found repeated values
@@ -70,7 +71,10 @@ def check_win(cs):
     return 0
 
 
+# info_square
 # get the info of a specific square in the matrix
+# input: x, y position of value, matrix with whole sudoku
+# number of ocurrencies vertically and horizontally (if '.' = 0)
 def info_square(x, y, cs):
     # default to zero
     total_occ = 0
@@ -84,6 +88,9 @@ def info_square(x, y, cs):
     return total_occ
 
 
+# possible_value
+# input: x, y position of value, matrix with whole sudoku
+# possible values of the checked position
 def possible_value(x, y, cs):
     values = ['1', '2', '3', '4']
     vertical = [cs[0][x], cs[1][x], cs[2][x], cs[3][x]]
@@ -97,14 +104,27 @@ def possible_value(x, y, cs):
     return values
 
 
+# possible_value
+# input: x, y position of value, matrix with whole sudoku
+# possible values of the checked position
+def possible_value2(x, y, cs):
+    values = ['1', '2', '3', '4']
+    vertical = [cs[0][y], cs[1][y], cs[2][y], cs[3][y]]
+    for y1 in vertical:
+        if y1 in values:
+            values.remove(y1)
+    horizontal = cs[x]
+    for x1 in horizontal:
+        if x1 in values:
+            values.remove(x1)
+    return values
+
+
+# check_empty
 # check the number of '.' the array has
+# output: number of blank spaces
 def check_empty(cs):
     blank_numbers = 0
-    # for i in range(len(cs)):
-    #     vertical = [cs[0][i], cs[1][i], cs[2][i], cs[3][i]]
-    #     for y1 in vertical:
-    #         if y1 == '.':
-    #             blank_numbers += 1
     for j in range(len(cs)):
         horizontal = cs[j]
         for x1 in horizontal:
@@ -113,17 +133,21 @@ def check_empty(cs):
     return blank_numbers
 
 
+# check_matrix
+# input: matrix with whole sudoku
+# highest value in the new matrix of weights
 def check_matrix(cs):
     # create an empty matrix of the same dimensions
-    temp_matrix = [['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.']]
+    temp_matrix = copy.deepcopy(cs)
     for y in range(len(cs)):
         for x in range(len(cs)):
             temp_matrix[y][x] = info_square(x, y, cs)
-    # print(temp_matrix)
-    # print(highest_value(temp_matrix))
     return highest_value(temp_matrix)
 
 
+# highest_value
+# input: matrix with sudoku
+# highest value of each spot in the sudoku (position and value)
 def highest_value(cs):
     highest_value = 0
     x0 = 0
@@ -137,31 +161,10 @@ def highest_value(cs):
     return highest_value, x0, y0
 
 
+# create_newmat
+# input: x, y position of value, matrix with whole sudoku, value
+# new matrix with the new value inserted
 def create_newmat(x, y, val, cs):
     newmat = copy.deepcopy(cs)
     newmat[y][x] = val
     return newmat
-
-
-# tests for the methods
-# print(check_horizontal([5, 2, 5, 4]))
-# print(check_vertical(1, 2, 3, 4))
-# print(horizontal_info(['.', '1', '2', '.']))
-# print(info_square(0, 1, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
-# print(check_win([['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
-
-# print(possible_value(0, 0, [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]))
-array = [['.', '4', '2', '.'], ['.', '.', '4', '.'], ['2', '.', '.', '.'], ['4', '.', '.', '.']]
-# print(check_empty(array))
-# print(array)
-# print(check_matrix(array))
-
-# print(create_newmat(0, 1, '2', array))
-
-# que esta pasando con esta matriz
-matrix = [['1', '4', '2', '3'], ['3', '1', '4', '2'], ['2', '3', '1', '4'], ['4', '2', '3', '.']]
-
-# check win
-print(check_win(matrix))
-# check empty
-print(check_empty(matrix))
