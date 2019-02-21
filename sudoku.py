@@ -34,6 +34,10 @@ while (completion is not True):
         print("SIN SOLUCION")
         break
     for i in range(len(p_rts)):
+        print("----------------------------")
+        for j in range(0, 4):
+            print(p_rts[i][j])
+        print("----------------------------")
         if (slib.check_win(p_rts[i]) != 0 | slib.check_empty(p_rts[i]) != 0):
 
             # get the position that holds most probability of solving problem
@@ -58,5 +62,6 @@ while (completion is not True):
 
         if (slib.check_win(p_rts[i]) == 0 and slib.check_empty(p_rts[i]) == 0):
             print("Path Complete")
-            print(p_rts[i])
+            for j in range(0, 4):
+                print(p_rts[i][j])
             completion = True
